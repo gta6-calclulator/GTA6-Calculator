@@ -457,9 +457,36 @@
   <div class="ad-placeholder">[ Advertisement — Replace with AdSense code ]</div>
 </div>
 
+<!-- Cookie consent banner -->
+<div id="cookieBanner" style="display:none; position:fixed; bottom:0; left:0; right:0; background:#1a1a1a; border-top:1px solid rgba(255,255,255,0.12); padding:1rem 1.5rem; z-index:999; display:flex; flex-wrap:wrap; align-items:center; gap:12px; justify-content:space-between;">
+  <p style="font-size:13px; color:#a0a0a0; margin:0; flex:1; min-width:200px;">
+    We use cookies for analytics and advertising. See our <a href="privacy.html" style="color:#f7c948;">Privacy Policy</a>.
+  </p>
+  <div style="display:flex; gap:10px; flex-shrink:0;">
+    <button onclick="declineCookies()" style="background:transparent; border:1px solid rgba(255,255,255,0.2); color:#a0a0a0; padding:8px 16px; border-radius:8px; cursor:pointer; font-size:13px;">Decline</button>
+    <button onclick="acceptCookies()" style="background:#f7c948; border:none; color:#0f0f0f; padding:8px 16px; border-radius:8px; cursor:pointer; font-size:13px; font-weight:600;">Accept</button>
+  </div>
+</div>
+
 <footer>
-  GTA6Calc &nbsp;·&nbsp; Not affiliated with Rockstar Games &nbsp;·&nbsp; Fan-made tool
+  GTA6Calc &nbsp;·&nbsp; Not affiliated with Rockstar Games &nbsp;·&nbsp; Fan-made tool &nbsp;·&nbsp; <a href="privacy.html" style="color:#666; text-decoration:none;">Privacy Policy</a>
 </footer>
+
+<script>
+  function acceptCookies() {
+    localStorage.setItem('cookieConsent', 'accepted');
+    document.getElementById('cookieBanner').style.display = 'none';
+  }
+  function declineCookies() {
+    localStorage.setItem('cookieConsent', 'declined');
+    document.getElementById('cookieBanner').style.display = 'none';
+  }
+  window.addEventListener('load', function() {
+    if (!localStorage.getItem('cookieConsent')) {
+      document.getElementById('cookieBanner').style.display = 'flex';
+    }
+  });
+</script>
 
 <script>
 const businesses = [
