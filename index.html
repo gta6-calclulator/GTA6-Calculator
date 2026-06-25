@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GTA 6 Business Profit Calculator – Maximize Your In-Game Earnings</title>
+  <meta name="description" content="Free GTA 6 business profit calculator. Compare MC businesses, bunkers, nightclubs and more. See weekly and monthly GTA 6 earnings instantly." />
+  <meta name="keywords" content="GTA 6 business calculator, GTA 6 profit, GTA 6 money guide, GTA 6 earnings, GTA VI calculator" />
+  <meta property="og:title" content="GTA 6 Business Profit Calculator" />
+  <meta property="og:description" content="Find out which GTA 6 business makes you the most money. Free calculator with live estimates." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💰</text></svg>" />
+
+  <!-- Google AdSense placeholder – replace with your publisher ID -->
+  <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0f0f0f;
+      --bg2: #1a1a1a;
+      --bg3: #242424;
+      --border: rgba(255,255,255,0.08);
+      --border2: rgba(255,255,255,0.15);
+      --text: #f0f0f0;
+      --text2: #a0a0a0;
+      --text3: #666;
+      --accent: #f7c948;
+      --accent2: #e6b800;
+      --green: #3dd68c;
+      --red: #ff5c5c;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    header {
+      border-bottom: 1px solid var(--border);
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      background: rgba(15,15,15,0.95);
+      backdrop-filter: blur(8px);
+      z-index: 10;
+    }
+
+    .logo {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .logo span { color: var(--text2); font-weight: 400; }
+
+    nav a {
+      font-size: 13px;
+      color: var(--text2);
+      text-decoration: none;
+      margin-left: 1.5rem;
+      transition: color 0.15s;
+    }
+    nav a:hover { color: var(--text); }
+
+    .hero {
+      max-width: 780px;
+      margin: 3rem auto 0;
+      padding: 0 1.5rem;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(247,201,72,0.12);
+      color: var(--accent);
+      border: 1px solid rgba(247,201,72,0.25);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 4px 14px;
+      border-radius: 999px;
+      margin-bottom: 1.25rem;
+      letter-spacing: 0.04em;
+    }
+
+    h1 {
+      font-size: clamp(28px, 5vw, 44px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+
+    h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .hero p {
+      font-size: 16px;
+      color: var(--text2);
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+    }
+
+    /* Ad slot */
+    .ad-slot {
+      max-width: 780px;
+      margin: 0 auto 2rem;
+      padding: 0 1.5rem;
+    }
+    .ad-placeholder {
+      background: var(--bg2);
+      border: 1px dashed var(--border2);
+      border-radius: var(--radius-sm);
+      height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text3);
+      font-size: 12px;
+    }
+
+    main {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text3);
+      margin-bottom: 12px;
+    }
+
+    /* Business selector */
+    .biz-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 10px;
+      margin-bottom: 2rem;
+    }
+
+    .biz-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+      user-select: none;
+    }
+
+    .biz-card:hover { background: var(--bg3); border-color: var(--border2); }
+    .biz-card.active { border-color: var(--accent); background: rgba(247,201,72,0.06); }
+
+    .biz-emoji { font-size: 22px; margin-bottom: 8px; }
+    .biz-name { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
+    .biz-cost { font-size: 11px; color: var(--text3); }
+
+    /* Controls */
+    .controls-box {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .control-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 1rem;
+    }
+    .control-row:last-child { margin-bottom: 0; }
+
+    .control-lbl {
+      font-size: 13px;
+      color: var(--text2);
+      min-width: 140px;
+    }
+
+    input[type=range] {
+      -webkit-appearance: none;
+      flex: 1;
+      height: 4px;
+      background: var(--bg3);
+      border-radius: 999px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--accent);
+      cursor: pointer;
+      border: 2px solid var(--bg);
+    }
+
+    .control-val {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      min-width: 52px;
+      text-align: right;
+    }
+
+    /* Metrics */
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 12px;
+      margin-bottom: 2rem;
+    }
+
+    .metric {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+    }
+
+    .metric-lbl {
+      font-size: 12px;
+      color: var(--text3);
+      margin-bottom: 6px;
+    }
+
+    .metric-val {
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+
+    .metric-val.green { color: var(--green); }
+    .metric-val.amber { color: var(--accent); }
+
+    /* Breakdown */
+    .breakdown {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .breakdown-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+    .breakdown-row:last-child { border-bottom: none; font-weight: 600; font-size: 15px; }
+    .breakdown-row span:first-child { color: var(--text2); }
+    .breakdown-row.profit span:last-child { color: var(--green); }
+    .breakdown-row.loss span:last-child { color: var(--red); }
+
+    /* Chart */
+    .chart-wrap {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .bar-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-size: 13px;
+    }
+    .bar-row:last-child { margin-bottom: 0; }
+    .bar-label { min-width: 120px; color: var(--text2); }
+    .bar-track { flex: 1; background: var(--bg3); border-radius: 999px; height: 8px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 999px; background: var(--accent); transition: width 0.35s ease; }
+    .bar-val { min-width: 80px; text-align: right; color: var(--text); font-weight: 500; }
+
+    /* Tips */
+    .tips {
+      background: rgba(247,201,72,0.06);
+      border: 1px solid rgba(247,201,72,0.2);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .tips h3 { font-size: 14px; font-weight: 500; color: var(--accent); margin-bottom: 10px; }
+    .tips ul { list-style: none; }
+    .tips ul li {
+      font-size: 13px;
+      color: var(--text2);
+      padding: 4px 0;
+      padding-left: 16px;
+      position: relative;
+    }
+    .tips ul li::before { content: '→'; position: absolute; left: 0; color: var(--accent); }
+
+    .disclaimer {
+      font-size: 12px;
+      color: var(--text3);
+      text-align: center;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text3);
+    }
+
+    @media (max-width: 480px) {
+      .control-lbl { min-width: 100px; font-size: 12px; }
+      h1 { font-size: 26px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="#">GTA6<span>Calc</span></a>
+  <nav>
+    <a href="#calculator">Calculator</a>
+    <a href="#tips">Tips</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <div class="hero-badge">🎮 Updated for GTA 6 — November 2026</div>
+  <h1>Which business makes you the <em>most money</em> in GTA 6?</h1>
+  <p>Adjust your playtime and upgrades — see live profit estimates for every business type.</p>
+</div>
+
+<!-- Ad slot top -->
+<div class="ad-slot">
+  <div class="ad-placeholder">[ Advertisement — Replace with AdSense code ]</div>
+</div>
+
+<main id="calculator">
+
+  <p class="section-label">1. Choose your business</p>
+  <div class="biz-grid" id="bizGrid"></div>
+
+  <p class="section-label">2. Set your playtime &amp; upgrades</p>
+  <div class="controls-box">
+    <div class="control-row">
+      <span class="control-lbl">Hours per day</span>
+      <input type="range" id="hoursSlider" min="1" max="12" step="1" value="4" />
+      <span class="control-val" id="hoursVal">4h</span>
+    </div>
+    <div class="control-row">
+      <span class="control-lbl">Days per week</span>
+      <input type="range" id="daysSlider" min="1" max="7" step="1" value="5" />
+      <span class="control-val" id="daysVal">5d</span>
+    </div>
+    <div class="control-row">
+      <span class="control-lbl">Staff level</span>
+      <input type="range" id="staffSlider" min="0" max="2" step="1" value="1" />
+      <span class="control-val" id="staffVal">Mid</span>
+    </div>
+    <div class="control-row">
+      <span class="control-lbl">Equipment level</span>
+      <input type="range" id="equipSlider" min="0" max="2" step="1" value="1" />
+      <span class="control-val" id="equipVal">Mid</span>
+    </div>
+  </div>
+
+  <p class="section-label">3. Your earnings</p>
+  <div class="metrics">
+    <div class="metric">
+      <div class="metric-lbl">Per hour</div>
+      <div class="metric-val" id="perHour">$0</div>
+    </div>
+    <div class="metric">
+      <div class="metric-lbl">Per session</div>
+      <div class="metric-val amber" id="perSession">$0</div>
+    </div>
+    <div class="metric">
+      <div class="metric-lbl">Per week</div>
+      <div class="metric-val" id="perWeek">$0</div>
+    </div>
+    <div class="metric">
+      <div class="metric-lbl">Per month</div>
+      <div class="metric-val green" id="perMonth">$0</div>
+    </div>
+    <div class="metric">
+      <div class="metric-lbl">Setup cost</div>
+      <div class="metric-val" id="setupCost">$0</div>
+    </div>
+    <div class="metric">
+      <div class="metric-lbl">ROI breakeven</div>
+      <div class="metric-val" id="breakeven">0 wks</div>
+    </div>
+  </div>
+
+  <p class="section-label">Weekly cost breakdown</p>
+  <div class="breakdown">
+    <div class="breakdown-row">
+      <span>Gross revenue</span>
+      <span id="bGross">$0</span>
+    </div>
+    <div class="breakdown-row loss">
+      <span>Supply cost</span>
+      <span id="bSupply">-$0</span>
+    </div>
+    <div class="breakdown-row loss">
+      <span>Staff overhead</span>
+      <span id="bStaff">-$0</span>
+    </div>
+    <div class="breakdown-row profit">
+      <span>Net profit / week</span>
+      <span id="bNet">$0</span>
+    </div>
+  </div>
+
+  <p class="section-label">Business comparison</p>
+  <div class="chart-wrap" id="chartWrap"></div>
+
+  <div class="tips" id="tips">
+    <h3>💡 Tips for this business</h3>
+    <ul id="tipsList"></ul>
+  </div>
+
+  <p class="disclaimer">
+    Estimates based on GTA Online V mechanics. Exact GTA 6 figures will be updated after launch on November 19, 2026.<br>
+    Numbers assume active play — passive income varies.
+  </p>
+
+</main>
+
+<!-- Ad slot bottom -->
+<div class="ad-slot">
+  <div class="ad-placeholder">[ Advertisement — Replace with AdSense code ]</div>
+</div>
+
+<footer>
+  GTA6Calc &nbsp;·&nbsp; Not affiliated with Rockstar Games &nbsp;·&nbsp; Fan-made tool
+</footer>
+
+<script>
+const businesses = [
+  {
+    id: 'mc', name: 'MC Business', emoji: '🏪',
+    base: 25000, cost: 650000, supplyRate: 0.28, staffBase: 3000,
+    tips: [
+      'Buy supplies rather than stealing to save time',
+      'Run multiple MC businesses simultaneously for compounding income',
+      'Upgrade product first before staff for better ROI'
+    ]
+  },
+  {
+    id: 'bunker', name: 'Bunker', emoji: '🛡️',
+    base: 35000, cost: 1100000, supplyRate: 0.30, staffBase: 4000,
+    tips: [
+      'Research unlocks sell bonuses — prioritise it first',
+      'Sell in a solo public session to avoid griefing',
+      'Full bunker sell missions reward more per unit'
+    ]
+  },
+  {
+    id: 'nightclub', name: 'Nightclub', emoji: '🎵',
+    base: 40000, cost: 1700000, supplyRate: 0.20, staffBase: 5500,
+    tips: [
+      'Nightclub aggregates passive income from all linked businesses',
+      'Technician assignments determine which goods accumulate',
+      'Upgrade popularity regularly for maximum passive flow'
+    ]
+  },
+  {
+    id: 'coke', name: 'Coke Lockup', emoji: '📦',
+    base: 30000, cost: 975000, supplyRate: 0.32, staffBase: 3500,
+    tips: [
+      'Pair with MC President role for production bonus',
+      'Full product sell gives best GTA$ per hour',
+      'Upgrade equipment first for yield boost'
+    ]
+  },
+  {
+    id: 'ceo', name: 'CEO Warehouse', emoji: '💼',
+    base: 28000, cost: 800000, supplyRate: 0.25, staffBase: 3200,
+    tips: [
+      'Full large warehouse sells give a significant bonus',
+      'Avoid selling in sessions with many other CEOs',
+      'Import/Export combined with warehouse boosts income'
+    ]
+  },
+  {
+    id: 'casino', name: 'Casino Work', emoji: '🎰',
+    base: 20000, cost: 0, supplyRate: 0.10, staffBase: 1000,
+    tips: [
+      'No setup cost — ideal for new players',
+      'Complete all casino missions for unlock bonuses',
+      'Daily chip spin gives free GTA$ every 24 hours'
+    ]
+  }
+];
+
+const staffLabels = ['None', 'Mid', 'Full'];
+const equipLabels = ['None', 'Mid', 'Full'];
+const staffMult   = [0.85, 1.0, 1.18];
+const equipMult   = [0.82, 1.0, 1.22];
+
+let selected = 'mc';
+let hours = 4, days = 5, staff = 1, equip = 1;
+
+function fmt(n) {
+  return '$' + Math.round(n).toLocaleString();
+}
+
+function calcNet(biz, h, d, s, e) {
+  const tm = staffMult[s] * equipMult[e];
+  const gross = biz.base * tm * h * d;
+  const supply = biz.base * biz.supplyRate * h * d;
+  const staffC = biz.staffBase * (s / 2 + 0.5);
+  return { gross, supply, staffC, net: gross - supply - staffC };
+}
+
+function render() {
+  const biz = businesses.find(b => b.id === selected);
+  const { gross, supply, staffC, net } = calcNet(biz, hours, days, staff, equip);
+  const perHour = net / (hours * days);
+  const perSession = net / days;
+  const monthly = net * 4;
+  const breakeven = biz.cost > 0 ? Math.ceil(biz.cost / net) : 0;
+
+  document.getElementById('perHour').textContent    = fmt(perHour);
+  document.getElementById('perSession').textContent = fmt(perSession);
+  document.getElementById('perWeek').textContent    = fmt(net);
+  document.getElementById('perMonth').textContent   = fmt(monthly);
+  document.getElementById('setupCost').textContent  = biz.cost > 0 ? fmt(biz.cost) : 'Free';
+  document.getElementById('breakeven').textContent  = biz.cost > 0 ? breakeven + ' wks' : 'Free';
+  document.getElementById('bGross').textContent     = fmt(gross);
+  document.getElementById('bSupply').textContent    = '-' + fmt(supply);
+  document.getElementById('bStaff').textContent     = '-' + fmt(staffC);
+  document.getElementById('bNet').textContent       = fmt(net);
+
+  renderChart();
+  renderTips(biz);
+}
+
+function renderChart() {
+  const wrap = document.getElementById('chartWrap');
+  const nets = businesses.map(b => ({ name: b.name, net: calcNet(b, hours, days, staff, equip).net }));
+  const max = Math.max(...nets.map(n => n.net));
+  wrap.innerHTML = nets.map(n => `
+    <div class="bar-row">
+      <span class="bar-label">${n.name}</span>
+      <div class="bar-track"><div class="bar-fill" style="width:${Math.round((n.net / max) * 100)}%"></div></div>
+      <span class="bar-val">${fmt(n.net)}</span>
+    </div>
+  `).join('');
+}
+
+function renderTips(biz) {
+  document.getElementById('tipsList').innerHTML = biz.tips
+    .map(t => `<li>${t}</li>`).join('');
+}
+
+function buildGrid() {
+  const grid = document.getElementById('bizGrid');
+  grid.innerHTML = businesses.map(b => `
+    <div class="biz-card${b.id === selected ? ' active' : ''}" onclick="selectBiz('${b.id}')">
+      <div class="biz-emoji">${b.emoji}</div>
+      <div class="biz-name">${b.name}</div>
+      <div class="biz-cost">${b.cost > 0 ? 'Setup: ' + fmt(b.cost) : 'No setup cost'}</div>
+    </div>
+  `).join('');
+}
+
+function selectBiz(id) {
+  selected = id;
+  buildGrid();
+  render();
+}
+
+document.getElementById('hoursSlider').addEventListener('input', e => {
+  hours = +e.target.value;
+  document.getElementById('hoursVal').textContent = hours + 'h';
+  render();
+});
+document.getElementById('daysSlider').addEventListener('input', e => {
+  days = +e.target.value;
+  document.getElementById('daysVal').textContent = days + 'd';
+  render();
+});
+document.getElementById('staffSlider').addEventListener('input', e => {
+  staff = +e.target.value;
+  document.getElementById('staffVal').textContent = staffLabels[staff];
+  render();
+});
+document.getElementById('equipSlider').addEventListener('input', e => {
+  equip = +e.target.value;
+  document.getElementById('equipVal').textContent = equipLabels[equip];
+  render();
+});
+
+buildGrid();
+render();
+</script>
+</body>
+</html>
